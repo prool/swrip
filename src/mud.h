@@ -3337,7 +3337,8 @@ do								\
 #ifdef HASHSTR
 #define STRALLOC(point)		str_alloc((point))
 #define QUICKLINK(point)	quick_link((point))
-#define QUICKMATCH(p1, p2)	(int) (p1) == (int) (p2)
+/* #define QUICKMATCH(p1, p2)	(int) (p1) == (int) (p2) */
+#define QUICKMATCH(p1, p2)	(long) (p1) == (long) (p2) /* prool */
 #define STRFREE(point)						\
 do								\
 {								\

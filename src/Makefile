@@ -3,8 +3,8 @@ PROF    =
 NOCRYPT =
 #Uncomment the next line if you want MCCP support
 #DBUGFLG = -DMCCP
-C_FLAGS = -g3 -Wall $(PROF) $(NOCRYPT) $(DBUGFLG)
-L_FLAGS = $(PROF) -lcrypt -lz
+C_FLAGS = -g3 -Wall $(PROF) $(NOCRYPT) $(DBUGFLG) -Wno-narrowing -fno-permissive
+L_FLAGS = $(PROF) -lz
 
 O_FILES = act_comm.o act_info.o act_move.o act_obj.o act_wiz.o boards.o \
 	  build.o clans.o comm.o comments.o const.o db.o fight.o \
@@ -30,7 +30,7 @@ all:
 
 swrip: $(O_FILES)
 	rm -f swrip
-	$(CC) $(L_FLAGS) -o swrip $(O_FILES) -lm
+	$(CC) $(L_FLAGS) -o swrip $(O_FILES) -lm -lcrypt
 	chmod g+w swrip
 	chmod g+w $(O_FILES)
 

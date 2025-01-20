@@ -991,9 +991,9 @@ void do_reset( CHAR_DATA *ch, char *argument )
             break;
       if ( !tmp )
       {
-        send_to_char("Your area pointer got lost.  Reset mode off.\n\r", ch);
-        bug("do_reset: %s's dest_buf points to invalid area",
-            (int)ch->name);
+        send_to_char("prool: error 004: Your area pointer got lost.  Reset mode off.\n\r", ch);
+        /* bug("do_reset: %s's dest_buf points to invalid area",
+            (int)ch->name); */
         ch->substate = SUB_NONE;
         DISPOSE(ch->dest_buf);
         return;
@@ -1049,7 +1049,8 @@ void do_rreset( CHAR_DATA *ch, char *argument )
     if ( !pRoom )
     {
       send_to_char( "Your room pointer got lost.  Reset mode off.\n\r", ch);
-      bug("do_rreset: %s's dest_buf points to invalid room", (int)ch->name);
+      /* bug("do_rreset: %s's dest_buf points to invalid room", (int)ch->name); */
+      bug("prool: error 005: do_rreset: dest_buf points to invalid room");
     }
     ch->substate = SUB_NONE;
     DISPOSE(ch->dest_buf);
@@ -1287,7 +1288,8 @@ void reset_area( AREA_DATA *pArea )
   lastobj = NULL;
   if ( !pArea->first_reset )
   {
-    bug( "%s: reset_area: no resets", (int)pArea->filename );
+    /* bug( "%s: reset_area: no resets", (int)pArea->filename ); */
+    bug( "prool: error 005: reset_area: no resets");
     return;
   }
   level = 0;

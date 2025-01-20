@@ -2766,7 +2766,7 @@ void send_to_char_color( const char *txt, CHAR_DATA *ch )
   d = ch->desc;
   /* Clear out old color stuff */
 /*  make_color_sequence(NULL, NULL, NULL);*/
-  while ( d && ((colstr = strpbrk(prevstr, "&^")) != NULL ))
+  while ( d && ((colstr = strpbrk((char *)prevstr, "&^")) != NULL )) /* prool */
   {
     if (colstr > prevstr)
        write_to_buffer(d, prevstr, (colstr-prevstr));
@@ -2878,7 +2878,7 @@ void send_to_pager_color( const char *txt, CHAR_DATA *ch )
   }
   /* Clear out old color stuff */
 /*  make_color_sequence(NULL, NULL, NULL);*/
-  while ( (colstr = strpbrk(prevstr, "&^")) != NULL )
+  while ( (colstr = strpbrk((char *)prevstr, "&^")) != NULL ) /* prool */
   {
     if ( colstr > prevstr )
       write_to_pager(d, prevstr, (colstr-prevstr));

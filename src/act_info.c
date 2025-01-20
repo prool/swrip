@@ -132,7 +132,7 @@ char *format_obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch, bool fShort )
 {
     static char buf[MAX_STRING_LENGTH];
 
-    buf[0] = '\0';
+    buf[0] = 0 /* prool */;
     if ( IS_OBJ_STAT(obj, ITEM_INVIS)     )   strcat( buf, "(Invis) "     );
     if ( ( IS_AFFECTED(ch, AFF_DETECT_MAGIC) || IS_IMMORTAL(ch) )
 	 && IS_OBJ_STAT(obj, ITEM_MAGIC)  )   strcat( buf, "&B(Blue Aura)&w "   );
@@ -310,7 +310,7 @@ void show_list_to_char( OBJ_DATA *list, CHAR_DATA *ch, bool fShort, bool fShowNo
 	}
 	if ( obj->wear_loc == WEAR_NONE
 	&& can_see_obj( ch, obj ) 
-	&& ( ( obj->description && obj->description[0] != '\0' ) || ( IS_SET(ch->act, PLR_HOLYLIGHT) || IS_NPC(ch) ) )
+	&& ( ( obj->description && obj->description[0] != 0 /* prool */ ) || ( IS_SET(ch->act, PLR_HOLYLIGHT) || IS_NPC(ch) ) )
 	&& (obj->item_type != ITEM_TRAP || IS_AFFECTED(ch, AFF_DETECTTRAPS) ) )
 	{
 	    pstrShow = format_obj_to_char( obj, ch, fShort );
@@ -490,7 +490,7 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
     char buf1[MAX_STRING_LENGTH];
     char message[MAX_STRING_LENGTH];
 
-    buf[0] = '\0';
+    buf[0] = 0 /* prool */;
 
     if ( IS_NPC(victim) )
       strcat( buf, " "  );
@@ -530,7 +530,7 @@ void show_char_to_char_0( CHAR_DATA *victim, CHAR_DATA *ch )
 						strcat( buf, "(Writing) " );
 
     set_char_color( AT_PERSON, ch );
-    if ( victim->position == victim->defposition && victim->long_descr[0] != '\0' )
+    if ( victim->position == victim->defposition && victim->long_descr[0] != 0 /* prool */ )
     {
 	strcat( buf, victim->long_descr );
 	send_to_char( buf, ch );
@@ -769,7 +769,7 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
 
     ch_printf( ch, "%s is a %s %s\n\r", PERS(victim, ch), get_sex( victim ), npc_race[victim->race] );
 
-    if ( victim->description[0] != '\0' )
+    if ( victim->description[0] != 0 /* prool */ )
     {
 	send_to_char( victim->description, ch );
     }
@@ -788,7 +788,7 @@ void show_char_to_char_1( CHAR_DATA *victim, CHAR_DATA *ch )
     {
 	if ( ( obj = get_eq_char( victim, iWear ) ) != NULL
 	&&   can_see_obj( ch, obj ) && 
-	( ( obj->description && obj->description[0] != '\0' ) || ( IS_SET(ch->act, PLR_HOLYLIGHT) || IS_NPC(ch) ) ) )
+	( ( obj->description && obj->description[0] != 0 /* prool */ ) || ( IS_SET(ch->act, PLR_HOLYLIGHT) || IS_NPC(ch) ) ) )
 	{
 	    if ( !found )
 	    {
@@ -994,7 +994,7 @@ void do_look ( CHAR_DATA *ch, char *argument )
 
     doexaprog = str_cmp( "noprog", arg2 ) && str_cmp( "noprog", arg3 );
 
-    if ( arg1[0] == '\0' || !str_cmp( arg1, "auto" ) )
+    if ( arg1[0] == 0 /* prool */ || !str_cmp( arg1, "auto" ) )
     {
        SHIP_DATA * ship;
     
@@ -1023,7 +1023,7 @@ void do_look ( CHAR_DATA *ch, char *argument )
 	send_to_char( "\n\r", ch );
 	set_char_color( AT_RMDESC, ch ); 	
 	
-	if ( arg1[0] == '\0'
+	if ( arg1[0] == 0 /* prool */
 	|| ( !IS_NPC(ch) && !IS_SET(ch->act, PLR_BRIEF) ) )
 	    send_to_char( ch->in_room->description, ch );
  
@@ -1142,7 +1142,7 @@ void do_look ( CHAR_DATA *ch, char *argument )
 	int count;
 
 	/* 'look under' */
-	if ( arg2[0] == '\0' )
+	if ( arg2[0] == 0 /* prool */ )
 	{
 	    send_to_char( "Look beneath what?\n\r", ch );
 	    return;
@@ -1176,7 +1176,7 @@ void do_look ( CHAR_DATA *ch, char *argument )
 	int count;
 
 	/* 'look in' */
-	if ( arg2[0] == '\0' )
+	if ( arg2[0] == 0 /* prool */ )
 	{
 	    send_to_char( "Look in what?\n\r", ch );
 	    return;
@@ -1284,7 +1284,7 @@ void do_look ( CHAR_DATA *ch, char *argument )
 	      act(AT_RED, "The $d has been bashed from its hinges!",ch, NULL, pexit->keyword, TO_CHAR);
       }
 
-      if ( pexit->description && pexit->description[0] != '\0' )
+      if ( pexit->description && pexit->description[0] != 0 /* prool */ )
   	send_to_char( pexit->description, ch );
       else
 	send_to_char( "Nothing special there.\n\r", ch );
@@ -1530,7 +1530,7 @@ void do_glance( CHAR_DATA *ch, char *argument )
 
   argument = one_argument( argument, arg1 );
 
-  if ( arg1[0] == '\0' )
+  if ( arg1[0] == 0 /* prool */ )
   {
     save_act = ch->act;
     SET_BIT( ch->act, PLR_BRIEF );
@@ -1582,7 +1582,7 @@ void do_examine( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
 
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
     {
 	send_to_char( "Examine what?\n\r", ch );
 	return;
@@ -1808,7 +1808,7 @@ void do_exits( CHAR_DATA *ch, char *argument )
     bool fAuto;
 
     set_char_color( AT_EXITS, ch );
-    buf[0] = '\0';
+    buf[0] = 0 /* prool */;
     fAuto  = !str_cmp( argument, "auto" );
 
     if ( !check_blind( ch ) )
@@ -1957,7 +1957,7 @@ HELP_DATA *get_help( CHAR_DATA *ch, char *argument )
     HELP_DATA *pHelp;
     int lev;
 
-    if ( argument[0] == '\0' )
+    if ( argument[0] == 0 /* prool */ )
 	argument = "summary";
 
     if ( isdigit(argument[0]) )
@@ -1970,11 +1970,11 @@ HELP_DATA *get_help( CHAR_DATA *ch, char *argument )
     /*
      * Tricky argument handling so 'help a b' doesn't match a.
      */
-    argall[0] = '\0';
-    while ( argument[0] != '\0' )
+    argall[0] = 0 /* prool */;
+    while ( argument[0] != 0 /* prool */ )
     {
 	argument = one_argument( argument, argone );
-	if ( argall[0] != '\0' )
+	if ( argall[0] != 0 /* prool */ )
 	    strcat( argall, " " );
 	strcat( argall, argone );
     }
@@ -2008,7 +2008,7 @@ sh_int str_similarity( const char *astr, const char *bstr )
         if ( LOWER(*astr) == LOWER(*bstr) )
            matches++;
         
-        if (++bstr == '\0')
+        if (++bstr == 0 /* prool */)
            return matches;                
     }
     
@@ -2031,7 +2031,7 @@ sh_int str_prefix_level( const char *astr, const char *bstr )
         else
            return matches;
 
-        if (++bstr == '\0')
+        if (++bstr == 0 /* prool */)
         return matches;
     }
 
@@ -2064,13 +2064,13 @@ void similar_help_files(CHAR_DATA *ch, char *argument)
         
     for ( pHelp = first_help; pHelp; pHelp=pHelp->next)
     {
-        buf[0]='\0';      
+        buf[0]=0 /* prool */;      
         extension=pHelp->keyword;
         
         if (pHelp->level > get_trust(ch))
            continue;
 
-        while ( extension[0] != '\0' )
+        while ( extension[0] != 0 /* prool */ )
         {
               extension= one_argument(extension, buf);
               
@@ -2094,10 +2094,10 @@ void similar_help_files(CHAR_DATA *ch, char *argument)
 
     for ( pHelp = first_help; pHelp; pHelp=pHelp->next)
     {
-        buf[0]='\0';      
+        buf[0]=0 /* prool */;      
         extension=pHelp->keyword;
 
-        while ( extension[0] != '\0' )
+        while ( extension[0] != 0 /* prool */ )
         {
               extension=one_argument(extension, buf);
 
@@ -2133,7 +2133,7 @@ void do_help( CHAR_DATA *ch, char *argument )
 
     strcpy(nohelp, argument); /* For Finding "needed" helpfiles */
 
-    if ( !argument || argument[0] == '\0')
+    if ( !argument || argument[0] == 0 /* prool */)
     {
       do_help( ch, "help" );
       return;
@@ -2252,7 +2252,7 @@ void do_hset( CHAR_DATA *ch, char *argument )
 
     smash_tilde( argument );
     argument = one_argument( argument, arg1 );
-    if ( arg1[0] == '\0' )
+    if ( arg1[0] == 0 /* prool */ )
     {
 	send_to_char( "Syntax: hset <field> [value] [help page]\n\r",	ch );
 	send_to_char( "\n\r",						ch );
@@ -2334,10 +2334,10 @@ void do_hlist( CHAR_DATA *ch, char *argument )
     maxlimit = get_trust(ch);
     minlimit = maxlimit >= LEVEL_GREATER ? -1 : 0;
     argument = one_argument( argument, arg );
-    if ( arg[0] != '\0' )
+    if ( arg[0] != 0 /* prool */ )
     {
 	min = URANGE( minlimit, atoi(arg), maxlimit );
-	if ( argument[0] != '\0' )
+	if ( argument[0] != 0 /* prool */ )
 	    max = URANGE( min, atoi(argument), maxlimit );
 	else
 	    max = maxlimit;
@@ -2452,7 +2452,7 @@ void do_who( CHAR_DATA *ch, char *argument )
   {
     char arg[MAX_STRING_LENGTH];
     argument = one_argument( argument, arg );
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
       break;
 
 	 if ( is_number( arg ) )
@@ -2564,7 +2564,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 	  * Now find matching chars.
 	  */
 	 nMatch = 0;
-	 buf[0] = '\0';
+	 buf[0] = 0 /* prool */;
 	 if ( ch && !NullCh)
 	set_pager_color( AT_GREEN, ch );
 	 else
@@ -2608,7 +2608,7 @@ void do_who( CHAR_DATA *ch, char *argument )
 
 	if ( fShowHomepage
 	&&   wch->pcdata->homepage
-	&&   wch->pcdata->homepage[0] != '\0' )
+	&&   wch->pcdata->homepage[0] != 0 /* prool */ )
 	  sprintf( char_name, "<A HREF=\"%s\">%s</A>",
 		show_tilde( wch->pcdata->homepage ), wch->name );
 	else
@@ -2649,7 +2649,7 @@ void do_who( CHAR_DATA *ch, char *argument )
           race = "Retired";
         else if ( IS_GUEST( wch ) )
           race = "Guest";
-	else if ( wch->pcdata->rank && wch->pcdata->rank[0] != '\0' )
+	else if ( wch->pcdata->rank && wch->pcdata->rank[0] != 0 /* prool */ )
 	  race = wch->pcdata->rank;
 
 	if ( wch->pcdata->clan && ( (!IS_NPC(ch) &&  ch->pcdata->clan
@@ -2671,13 +2671,13 @@ void do_who( CHAR_DATA *ch, char *argument )
 	  strcat( clan_name, ")" );
 	}
 	else
-	  clan_name[0] = '\0';
+	  clan_name[0] = 0 /* prool */;
 
 
 	if ( IS_SET(wch->act, PLR_WIZINVIS) )
 	  sprintf( invis_str, "(%d) ", wch->pcdata->wizinvis );
 	else
-	  invis_str[0] = '\0';
+	  invis_str[0] = 0 /* prool */;
 
 	sprintf( buf, "%c%s %s%s%s%s %s%s%s%s\n\r",
 	    force_char,
@@ -2822,7 +2822,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
 
     argument = one_argument( argument, arg1 );
     argument = one_argument( argument, arg2 );
-    if ( arg1[0] == '\0' )
+    if ( arg1[0] == 0 /* prool */ )
     {
 	send_to_char( "Compare what to what?\n\r", ch );
 	return;
@@ -2833,7 +2833,7 @@ void do_compare( CHAR_DATA *ch, char *argument )
 	send_to_char( "You do not have that item.\n\r", ch );
 	return;
     }
-     if ( arg2[0] == '\0' )
+     if ( arg2[0] == 0 /* prool */ )
     {
 	for ( obj2 = ch->first_carrying; obj2; obj2 = obj2->next_content )
 	{
@@ -2920,7 +2920,7 @@ void do_where( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
 
     set_pager_color( AT_PERSON, ch );
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
     {
         if (get_trust(ch) >= LEVEL_IMMORTAL)
            send_to_pager( "Players logged in:\n\r", ch );
@@ -2977,7 +2977,7 @@ void do_consider( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
 
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
     {
 	send_to_char( "Consider killing whom?\n\r", ch );
 	return;
@@ -3025,7 +3025,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
     if ( IS_NPC(ch) )
 	return;
 
-    if ( argument[0] == '\0' )
+    if ( argument[0] == 0 /* prool */ )
     {
 	int	col;
 	sh_int	lasttype, cnt;
@@ -3147,7 +3147,7 @@ void do_practice( CHAR_DATA *ch, char *argument )
 	/*
 	 * Skill requires a special teacher
 	 */
-	if ( skill_table[sn]->teachers && skill_table[sn]->teachers[0] != '\0' )
+	if ( skill_table[sn]->teachers && skill_table[sn]->teachers[0] != 0 /* prool */ )
 	{
 	    sprintf( buf, "%d", mob->pIndexData->vnum );
 	    if ( !is_name( buf, skill_table[sn]->teachers ) )
@@ -3213,7 +3213,7 @@ void do_teach( CHAR_DATA *ch, char *argument )
 
     argument = one_argument(argument, arg);
 
-    if ( argument[0] == '\0' )
+    if ( argument[0] == 0 /* prool */ )
     {
         send_to_char( "Teach who, what?\n\r", ch );
 	return;
@@ -3305,7 +3305,7 @@ void do_wimpy( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
 
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
 	wimpy = (int) ch->max_hit / 5;
     else
 	wimpy = atoi( arg );
@@ -3353,7 +3353,7 @@ void do_password( CHAR_DATA *ch, char *argument )
     if ( *argument == '\'' || *argument == '"' )
 	cEnd = *argument++;
 
-    while ( *argument != '\0' )
+    while ( *argument != 0 /* prool */ )
     {
 	if ( *argument == cEnd )
 	{
@@ -3362,7 +3362,7 @@ void do_password( CHAR_DATA *ch, char *argument )
 	}
 	*pArg++ = *argument++;
     }
-    *pArg = '\0';
+    *pArg = 0 /* prool */;
 
     pArg = arg2;
     while ( isspace(*argument) )
@@ -3372,7 +3372,7 @@ void do_password( CHAR_DATA *ch, char *argument )
     if ( *argument == '\'' || *argument == '"' )
 	cEnd = *argument++;
 
-    while ( *argument != '\0' )
+    while ( *argument != 0 /* prool */ )
     {
 	if ( *argument == cEnd )
 	{
@@ -3381,9 +3381,9 @@ void do_password( CHAR_DATA *ch, char *argument )
 	}
 	*pArg++ = *argument++;
     }
-    *pArg = '\0';
+    *pArg = 0 /* prool */;
 
-    if ( arg1[0] == '\0' || arg2[0] == '\0' )
+    if ( arg1[0] == 0 /* prool */ || arg2[0] == 0 /* prool */ )
     {
 	send_to_char( "Syntax: password <old> <new>.\n\r", ch );
 	return;
@@ -3407,7 +3407,7 @@ void do_password( CHAR_DATA *ch, char *argument )
      * No tilde allowed because of player file format.
      */
     pwdnew = crypt( arg2, ch->name );
-    for ( p = pwdnew; *p != '\0'; p++ )
+    for ( p = pwdnew; *p != 0 /* prool */; p++ )
     {
 	if ( *p == '~' )
 	{
@@ -3457,7 +3457,7 @@ void do_commands( CHAR_DATA *ch, char *argument )
 
     col = 0;
     set_pager_color( AT_PLAIN, ch );
-    if ( argument[0] == '\0' )
+    if ( argument[0] == 0 /* prool */ )
     {
 	for ( hash = 0; hash < 126; hash++ )
 	    for ( command = command_hash[hash]; command; command = command->next )
@@ -3506,7 +3506,7 @@ void do_channels( CHAR_DATA *ch, char *argument )
 
     one_argument( argument, arg );
 
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
     {
 	if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_SILENCE) )
 	{
@@ -3769,7 +3769,7 @@ void do_config( CHAR_DATA *ch, char *argument )
     one_argument( argument, arg );
 
     set_char_color( AT_WHITE, ch );
-    if ( arg[0] == '\0' )
+    if ( arg[0] == 0 /* prool */ )
     {
 	send_to_char( "[ Keyword  ] Option\n\r", ch );
 
@@ -4075,13 +4075,13 @@ void do_slist( CHAR_DATA *ch, char *argument )
    lowlev=1;
    hilev=150;
 
-   if (arg1[0]!='\0')
+   if (arg1[0]!=0 /* prool */)
       lowlev=atoi(arg1);
 
    if ((lowlev<1) || (lowlev>LEVEL_IMMORTAL))
       lowlev=1;
 
-   if (arg2[0]!='\0')
+   if (arg2[0]!=0 /* prool */)
       hilev=atoi(arg2);
 
    if ((hilev<0) || (hilev>=LEVEL_IMMORTAL))
@@ -4152,12 +4152,12 @@ void do_whois( CHAR_DATA *ch, char *argument)
   char buf[MAX_STRING_LENGTH];
   char buf2[MAX_STRING_LENGTH];
 
-  buf[0] = '\0';
+  buf[0] = 0 /* prool */;
 
   if(IS_NPC(ch))
     return;
 
-  if(argument[0] == '\0')
+  if(argument[0] == 0 /* prool */)
   {
     send_to_char("You must input the name of a player online.\n\r", ch);
     return;
@@ -4212,12 +4212,12 @@ void do_whois( CHAR_DATA *ch, char *argument)
   }
   send_to_char( ".\n\r", ch );
 
-  if(victim->pcdata->homepage && victim->pcdata->homepage[0] != '\0')
+  if(victim->pcdata->homepage && victim->pcdata->homepage[0] != 0 /* prool */)
     ch_printf(ch, "%s's homepage can be found at %s.\n\r", 
 	victim->name,
 	victim->pcdata->homepage);
 
-  if(victim->pcdata->bio && victim->pcdata->bio[0] != '\0')
+  if(victim->pcdata->bio && victim->pcdata->bio[0] != 0 /* prool */)
     ch_printf(ch, "%s's personal bio:\n\r%s",
 	victim->name,
 	victim->pcdata->bio);
@@ -4228,7 +4228,7 @@ void do_whois( CHAR_DATA *ch, char *argument)
 
     send_to_char("Info for immortals:\n\r", ch);
 
-    if ( victim->pcdata->authed_by && victim->pcdata->authed_by[0] != '\0' )
+    if ( victim->pcdata->authed_by && victim->pcdata->authed_by[0] != 0 /* prool */ )
 	ch_printf(ch, "%s was authorized by %s.\n\r",
 		victim->name, victim->pcdata->authed_by);
 
@@ -4271,7 +4271,7 @@ void do_whois( CHAR_DATA *ch, char *argument)
       strcat(buf2, ".\n\r");
       send_to_char(buf2, ch);
     }
-    if ( victim->desc && victim->desc->host[0]!='\0' )   /* added by Gorog */
+    if ( victim->desc && victim->desc->host[0]!=0 /* prool */ )   /* added by Gorog */
     {
       sprintf (buf2, "%s's IP info: %s ", victim->name, victim->desc->hostip);
       if (get_trust(ch) > LEVEL_GOD)
@@ -4581,7 +4581,7 @@ void do_nohelps(CHAR_DATA *ch, char *argument)
 	return;
     }
 
-   if ( arg[0] == '\0' || !str_cmp(arg, "all") )
+   if ( arg[0] == 0 /* prool */ || !str_cmp(arg, "all") )
    {
       do_nohelps(ch, "commands");
       send_to_char( "\n\r", ch);

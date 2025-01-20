@@ -223,14 +223,18 @@ void violence_update( void )
 	 */
 	if ( !ch->in_room || !ch->name )
 	{
-	    log_string( "violence_update: bad ch record!  (Shortcutting.)" );
+	    log_string( "prool: error 002: violence_update: bad ch record!  (Shortcutting.)" );
+	    /*
 	    sprintf( buf, "ch: %d  ch->in_room: %d  ch->prev: %d  ch->next: %d",
 	    	(int) ch, (int) ch->in_room, (int) ch->prev, (int) ch->next );
-	    log_string( buf );
+	    log_string( buf ); */ /* prool */
 	    log_string( lastplayercmd );
 	    if ( lst_ch )
-	      sprintf( buf, "lst_ch: %d  lst_ch->prev: %d  lst_ch->next: %d",
-	      		(int) lst_ch, (int) lst_ch->prev, (int) lst_ch->next );
+	      {
+	      sprintf(buf, "prool: error 003");
+	      /*sprintf( buf, "lst_ch: %d  lst_ch->prev: %d  lst_ch->next: %d",
+	      		(int) lst_ch, (int) lst_ch->prev, (int) lst_ch->next ); */
+	      }
 	    else
 	      strcpy( buf, "lst_ch: NULL" );
 	    log_string( buf );
